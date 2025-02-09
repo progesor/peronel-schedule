@@ -1,7 +1,7 @@
 // utils/scheduleUtils.ts
 import { FullSchedule, ShiftCode, ShiftMap, MonthSchedule } from '../types';
 
-const shiftTypes: ShiftCode[] = ['G', 'A','S1', 'S2',  'D'];
+const shiftTypes: ShiftCode[] = ['G', 'S1', 'S2', 'A', 'D'];
 
 const dailyRequirements = {
     G: 3,  // Gece

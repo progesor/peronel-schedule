@@ -17,7 +17,7 @@ export const shifts: ShiftMap = {
         endTime: '18:00'
     },
     S2: {
-        name: 'Sabah2 (10:00-19:10)',
+        name: 'Sabah2 (10:00-19:00)',
         color: 'bg-green-200 hover:bg-green-300',
         duration: 9 * 60,
         startTime: '10:00',

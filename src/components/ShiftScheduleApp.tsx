@@ -7,7 +7,7 @@ import ShiftInfo from './ShiftInfo';
 import ScheduleTable from './ScheduleTable';
 
 const ShiftScheduleApp: FC<ShiftScheduleAppProps> = () => {
-    const [totalWeeks, setTotalWeeks] = useState<number>(8);
+    const [totalWeeks, setTotalWeeks] = useState<number>(4);
     const totalEmployees = 23; // Sabit çalışan sayısı
     const schedule = generateSchedule(totalEmployees, totalWeeks);
 
