@@ -8,7 +8,7 @@ import ScheduleTable from './ScheduleTable';
 
 const ShiftScheduleApp: FC<ShiftScheduleAppProps> = () => {
     const [totalWeeks, setTotalWeeks] = useState<number>(8);
-    const totalEmployees = Object.values(employeesPerShift).reduce((a, b) => a + b, 0);
+    const totalEmployees = 23; // Sabit çalışan sayısı
     const schedule = generateSchedule(totalEmployees, totalWeeks);
 
     // Hafta etiketlerini oluştur
@@ -21,13 +21,22 @@ const ShiftScheduleApp: FC<ShiftScheduleAppProps> = () => {
         setTotalWeeks(Number(event.target.value));
     };
 
+    // Günlük minimum personel gereksinimlerini göster
+    const dailyRequirements = {
+        G: 3,  // Gece
+        S1: 2, // Sabah
+        S2: 2, // Sabah2
+        A: 6,  // Akşam
+        D: 3   // Davul
+    };
+
     return (
         <div className="min-h-screen bg-gray-100 p-4 md:p-6">
             <div className="max-w-7xl mx-auto">
                 <header className="mb-6">
                     <h1 className="text-2xl font-bold text-gray-900 mb-2">Vardiya Çizelgesi</h1>
                     <p className="text-gray-600">
-                        Toplam {totalEmployees} çalışan için optimize edilmiş vardiya planı
+                        {totalEmployees} çalışan için optimize edilmiş vardiya planı
                     </p>
                     <div className="mt-4">
                         <label htmlFor="weeks" className="block text-sm font-medium text-gray-700">
@@ -50,12 +59,15 @@ const ShiftScheduleApp: FC<ShiftScheduleAppProps> = () => {
                 <ShiftInfo shifts={shifts} />
 
                 <div className="mb-6">
-                    <h3 className="text-lg font-semibold mb-3">Vardiya Dağılımı</h3>
+                    <h3 className="text-lg font-semibold mb-3">Vardiya Gereksinimleri</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                        {Object.entries(employeesPerShift).map(([shift, count]) => (
-                            <div key={shift} className="bg-white rounded-lg shadow p-3">
+                        {Object.entries(dailyRequirements).map(([shift, count]) => (
+                            <div key={shift} className={`${shifts[shift].color} rounded-lg shadow p-3`}>
                                 <div className="font-medium text-gray-900">{shifts[shift].name}</div>
-                                <div className="text-sm text-gray-600">{count} çalışan</div>
+                                <div className="text-sm text-gray-600">Günlük {count} kişi gerekli</div>
+                                <div className="text-xs text-gray-500 mt-1">
+                                    Atanan: {employeesPerShift[shift]} kişi
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -72,6 +84,7 @@ const ShiftScheduleApp: FC<ShiftScheduleAppProps> = () => {
                     <p>* Her çalışan haftada 5 gün çalışıp 2 gün izin kullanmaktadır.</p>
                     <p>* Her 4 haftada bir vardiya rotasyonu uygulanmaktadır.</p>
                     <p>* Rotasyon sayesinde izin günleri ve vardiyalar düzenli olarak değişmektedir.</p>
+                    <p>* Toplam {totalEmployees} çalışan ile minimum personel gereksinimleri karşılanmaktadır.</p>
                 </footer>
             </div>
         </div>
